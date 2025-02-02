@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                {{ date('Y') }} © Parkir RSI.
+                {{ date('Y') }} © Sistem Parkir RSI
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by Themesbrand
+                    Developed by IT RSI
                 </div>
             </div>
         </div>
