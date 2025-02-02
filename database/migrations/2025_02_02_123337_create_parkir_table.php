@@ -1,34 +1,33 @@
 <?php
 
-namespace App\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-class Parkir extends Model
+return new class extends Migration
 {
-    use HasFactory;
-
-    protected $table = 'parkir';
-    
-    protected $fillable = [
-        'nomor_kendaraan',
-        'jenis_kendaraan',
-        'waktu_masuk',
-        'waktu_keluar',
-        'biaya',
-        'status',
-        'created_by',
-        'updated_by'
-    ];
-
-    protected $casts = [
-        'waktu_masuk' => 'datetime',
-        'waktu_keluar' => 'datetime',
-    ];
-
-    public function user()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        return $this->belongsTo(User::class, 'created_by');
+        Schema::create('parkir', function (Blueprint $table) {
+            $table->id();
+            $table->string('nomor_plat');
+            $table->string('jenis_kendaraan');
+            $table->dateTime('waktu_masuk');
+            $table->dateTime('waktu_keluar')->nullable();
+            $table->decimal('biaya', 10, 2)->nullable();
+            $table->string('status')->default('masuk');
+            $table->timestamps();
+        });
     }
-}
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('parkir');
+    }
+};

@@ -23,7 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Nanti di sini akan kita tambahkan logika untuk mengambil data dashboard
         return view('home');
     }
 }
