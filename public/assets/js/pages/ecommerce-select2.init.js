@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap
+/******/ (function() { // webpackBootstrap
 /*!******************************************************!*\
   !*** ./resources/js/pages/ecommerce-select2.init.js ***!
   \******************************************************/

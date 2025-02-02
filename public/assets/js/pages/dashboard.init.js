@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap
+/******/ (function() { // webpackBootstrap
 /*!**********************************************!*\
   !*** ./resources/js/pages/dashboard.init.js ***!
   \**********************************************/
