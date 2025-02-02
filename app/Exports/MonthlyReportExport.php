@@ -8,32 +8,35 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class MonthlyReportExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSize
+class MonthlyReportExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSize, WithStyles
 {
-    protected $year;
     protected $month;
+    protected $year;
 
-    public function __construct($year, $month)
+    public function __construct($month)
     {
-        $this->year = $year;
-        $this->month = $month;
+        $date = \Carbon\Carbon::createFromFormat('Y-m', $month);
+        $this->month = $date->month;
+        $this->year = $date->year;
     }
 
     public function query()
     {
         return Parking::query()
             ->select(
-                DB::raw('DATE(waktu_masuk) as date'),
-                DB::raw('COUNT(*) as total'),
-                DB::raw('SUM(CASE WHEN jenis_kendaraan = "motor" THEN 1 ELSE 0 END) as motor'),
-                DB::raw('SUM(CASE WHEN jenis_kendaraan = "mobil" THEN 1 ELSE 0 END) as mobil'),
-                DB::raw('SUM(biaya) as pendapatan')
+                DB::raw('DATE(waktu_masuk) as tanggal'),
+                DB::raw('COUNT(*) as total_kendaraan'),
+                DB::raw('SUM(CASE WHEN jenis_kendaraan = "motor" THEN 1 ELSE 0 END) as total_motor'),
+                DB::raw('SUM(CASE WHEN jenis_kendaraan = "mobil" THEN 1 ELSE 0 END) as total_mobil'),
+                DB::raw('SUM(biaya) as total_pendapatan')
             )
             ->whereYear('waktu_masuk', $this->year)
             ->whereMonth('waktu_masuk', $this->month)
-            ->groupBy(DB::raw('DATE(waktu_masuk)'))
-            ->orderBy('date');
+            ->groupBy('tanggal')
+            ->orderBy('tanggal');
     }
 
     public function headings(): array
@@ -50,11 +53,18 @@ class MonthlyReportExport implements FromQuery, WithHeadings, WithMapping, Shoul
     public function map($row): array
     {
         return [
-            $row->date,
-            $row->total,
-            $row->motor,
-            $row->mobil,
-            $row->pendapatan
+            $row->tanggal,
+            $row->total_kendaraan,
+            $row->total_motor,
+            $row->total_mobil,
+            'Rp ' . number_format($row->total_pendapatan, 0, ',', '.')
+        ];
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            1 => ['font' => ['bold' => true]],
         ];
     }
 }

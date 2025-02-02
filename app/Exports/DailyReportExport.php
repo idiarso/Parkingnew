@@ -7,8 +7,10 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class DailyReportExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSize
+class DailyReportExport implements FromQuery, WithHeadings, WithMapping, ShouldAutoSize, WithStyles
 {
     protected $date;
 
@@ -40,13 +42,20 @@ class DailyReportExport implements FromQuery, WithHeadings, WithMapping, ShouldA
     public function map($parking): array
     {
         return [
-            $parking->ticket_number,
+            $parking->nomor_tiket,
             $parking->nomor_plat,
             $parking->jenis_kendaraan,
             $parking->waktu_masuk->format('H:i:s'),
-            $parking->waktu_keluar?->format('H:i:s'),
-            $parking->durasi,
-            $parking->biaya
+            $parking->waktu_keluar ? $parking->waktu_keluar->format('H:i:s') : '-',
+            $parking->durasi ?? '-',
+            $parking->biaya ? 'Rp ' . number_format($parking->biaya, 0, ',', '.') : '-'
+        ];
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            1 => ['font' => ['bold' => true]],
         ];
     }
 }

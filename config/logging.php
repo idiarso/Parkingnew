@@ -6,7 +6,7 @@ use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
 
 return [
-
+    'default' => env('LOG_CHANNEL', 'stack'),
     /*
     |--------------------------------------------------------------------------
     | Default Log Channel

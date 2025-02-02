@@ -86,4 +86,7 @@
         </div>
     </div>
 </div>
+<!-- ... rest of your dashboard content ... -->
+<h4 class="mb-2">{{ $totalVehicles }}</h4>  <!-- Ganti $totalActive dengan $totalVehicles -->
+<!-- ... -->
 @endsection

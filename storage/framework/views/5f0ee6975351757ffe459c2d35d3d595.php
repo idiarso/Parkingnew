@@ -14,7 +14,7 @@
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Total Kendaraan Hari Ini</p>
-                        <h4 class="mb-2">0</h4>
+                        <h4 class="mb-2"><?php echo e($totalVehicles); ?></h4>
                         <p class="text-muted mb-0">Kendaraan</p>
                     </div>
                     <div class="avatar-sm">
@@ -33,7 +33,7 @@
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Kendaraan Masuk</p>
-                        <h4 class="mb-2">0</h4>
+                        <h4 class="mb-2"><?php echo e($vehiclesIn); ?></h4>
                         <p class="text-muted mb-0">Kendaraan</p>
                     </div>
                     <div class="avatar-sm">
@@ -52,7 +52,7 @@
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Kendaraan Keluar</p>
-                        <h4 class="mb-2">0</h4>
+                        <h4 class="mb-2"><?php echo e($vehiclesOut); ?></h4>
                         <p class="text-muted mb-0">Kendaraan</p>
                     </div>
                     <div class="avatar-sm">
@@ -71,7 +71,7 @@
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-truncate font-size-14 mb-2">Pendapatan Hari Ini</p>
-                        <h4 class="mb-2">Rp 0</h4>
+                        <h4 class="mb-2">Rp <?php echo e(number_format($todayIncome, 0, ',', '.')); ?></h4>
                         <p class="text-muted mb-0">Rupiah</p>
                     </div>
                     <div class="avatar-sm">
@@ -85,4 +85,4 @@
     </div>
 </div>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\XAMPP\htdocs\parkir-RSI\resources\views/home.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\XAMPP\htdocs\parkir-RSI\resources\views/dashboard.blade.php ENDPATH**/ ?>

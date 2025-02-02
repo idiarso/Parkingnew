@@ -33,7 +33,72 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Rest of the daily report content -->
+
+                    <!-- Statistics Cards -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Kendaraan</h5>
+                                    <h2 class="mb-0">{{ $stats->total_kendaraan }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Motor</h5>
+                                    <h2 class="mb-0">{{ $stats->total_motor }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-warning text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Mobil</h5>
+                                    <h2 class="mb-0">{{ $stats->total_mobil }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-info text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Pendapatan</h5>
+                                    <h2 class="mb-0">Rp {{ number_format($stats->total_pendapatan, 0, ',', '.') }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Parkings Table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>No. Tiket</th>
+                                    <th>Plat Nomor</th>
+                                    <th>Jenis</th>
+                                    <th>Masuk</th>
+                                    <th>Keluar</th>
+                                    <th>Durasi</th>
+                                    <th>Biaya</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($parkings as $parking)
+                                <tr>
+                                    <td>{{ $parking->nomor_tiket }}</td>
+                                    <td>{{ $parking->nomor_plat }}</td>
+                                    <td>{{ ucfirst($parking->jenis_kendaraan) }}</td>
+                                    <td>{{ $parking->waktu_masuk->format('H:i:s') }}</td>
+                                    <td>{{ $parking->waktu_keluar ? $parking->waktu_keluar->format('H:i:s') : '-' }}</td>
+                                    <td>{{ $parking->durasi ?? '-' }}</td>
+                                    <td>Rp {{ number_format($parking->biaya, 0, ',', '.') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
