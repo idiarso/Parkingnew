@@ -53,6 +53,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/', [ProfileController::class, 'update'])->name('update');
         Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
     });
+    
+    // Parking Receipt Routes
+    Route::get('/parking/{parking}/receipt', [ParkingReceiptController::class, 'show'])->name('parking.receipt');
+    Route::get('/parking/{parking}/receipt/download', [ParkingReceiptController::class, 'download'])->name('parking.receipt.download');
+
+    // Report Export Routes
+    Route::get('/reports/daily/export', [ReportController::class, 'exportDaily'])->name('reports.daily.export');
+    Route::get('/reports/monthly/export', [ReportController::class, 'exportMonthly'])->name('reports.monthly.export');
+    Route::get('/reports/yearly/export', [ReportController::class, 'exportYearly'])->name('reports.yearly.export');
 
     // User Management (Admin only)
     Route::middleware(['admin'])->prefix('users')->name('users.')->group(function () {
